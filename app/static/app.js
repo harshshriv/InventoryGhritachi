@@ -1,7 +1,7 @@
 const $ = (id) => document.getElementById(id);
-const money = (n) => "$" + Number(n).toFixed(2);
+const money = (n) => "AED " + Number(n || 0).toFixed(2);
 
-const state = { search: "", category: "", lowOnly: false };
+const state = { search: "", category: "", status: "", overOnly: false };
 
 async function api(path, options) {
   const res = await fetch(path, {
@@ -16,17 +16,21 @@ async function api(path, options) {
 
 async function loadStats() {
   const s = await api("/api/stats");
-  $("stat-items").textContent = s.total_items;
-  $("stat-units").textContent = s.total_units;
-  $("stat-value").textContent = money(s.total_value);
-  $("stat-low").textContent = s.low_stock_count;
+  $("stat-instock").textContent = s.in_stock_count;
+  $("stat-units").textContent = s.units_in_stock;
+  $("stat-cost").textContent = money(s.stock_cost_value);
+  $("stat-retail").textContent = money(s.stock_retail_value);
+  $("stat-sold").textContent = s.sold_count;
+  $("stat-revenue").textContent = money(s.sold_revenue);
+  $("stat-over").textContent = s.overstocked_count;
 }
 
 async function loadItems() {
   const params = new URLSearchParams();
   if (state.search) params.set("search", state.search);
   if (state.category) params.set("category", state.category);
-  if (state.lowOnly) params.set("low_stock", "true");
+  if (state.status) params.set("status", state.status);
+  if (state.overOnly) params.set("overstocked", "true");
   const items = await api("/api/items?" + params.toString());
 
   const body = $("items-body");
@@ -35,15 +39,24 @@ async function loadItems() {
 
   for (const it of items) {
     const tr = document.createElement("tr");
-    if (it.low_stock) tr.className = "low";
+    const classes = [];
+    if (it.status === "Sold") classes.push("sold");
+    if (it.overstocked) classes.push("over");
+    tr.className = classes.join(" ");
     tr.innerHTML = `
-      <td>${escapeHtml(it.name)}${it.low_stock ? '<span class="badge">low</span>' : ""}</td>
-      <td>${escapeHtml(it.sku)}</td>
+      <td class="num">${it.item_number}</td>
       <td>${escapeHtml(it.category || "—")}</td>
-      <td class="num">${it.quantity}</td>
-      <td class="num">${it.reorder_level}</td>
-      <td class="num">${money(it.unit_price)}</td>
-      <td class="num">${money(it.quantity * it.unit_price)}</td>
+      <td>${escapeHtml(it.name)}</td>
+      <td>${escapeHtml(it.size || "—")}</td>
+      <td class="num">${it.current_stock}</td>
+      <td class="num">${it.on_order}</td>
+      <td class="num">${it.max_capacity}${it.overstocked ? '<span class="badge">over</span>' : ""}</td>
+      <td class="num">${money(it.price_per_unit)}</td>
+      <td class="num">${money(it.cost_per_unit)}</td>
+      <td class="num">${it.price_to_cost_ratio ?? "—"}</td>
+      <td class="num">${it.sold_price != null ? money(it.sold_price) : "—"}</td>
+      <td><span class="pill ${it.status === "Sold" ? "pill-sold" : "pill-stock"}">${it.status}</span></td>
+      <td class="num">${money(it.total_value_in_stock)}</td>
       <td class="num">
         <button class="link" data-edit="${it.id}">Edit</button>
         <button class="link danger" data-del="${it.id}">Delete</button>
@@ -63,33 +76,53 @@ async function refresh() {
 }
 
 // ---- Modal ----
-function openModal(item) {
+async function openModal(item) {
   $("form-error").hidden = true;
   $("form-title").textContent = item ? "Edit item" : "New item";
   $("item-id").value = item ? item.id : "";
-  $("f-name").value = item ? item.name : "";
-  $("f-sku").value = item ? item.sku : "";
+  if (!item) {
+    const meta = await api("/api/meta");
+    $("f-number").value = meta.next_item_number;
+  } else {
+    $("f-number").value = item.item_number;
+  }
   $("f-category").value = item ? item.category : "";
+  $("f-size").value = item ? item.size : "Free";
+  $("f-name").value = item ? item.name : "";
   $("f-description").value = item ? item.description : "";
-  $("f-quantity").value = item ? item.quantity : 0;
-  $("f-reorder").value = item ? item.reorder_level : 0;
-  $("f-price").value = item ? item.unit_price : 0;
+  $("f-stock").value = item ? item.current_stock : 1;
+  $("f-onorder").value = item ? item.on_order : 0;
+  $("f-max").value = item ? item.max_capacity : 1;
+  $("f-price").value = item ? item.price_per_unit : 0;
+  $("f-cost").value = item ? item.cost_per_unit : 0;
+  $("f-sold").value = item && item.sold_price != null ? item.sold_price : "";
+  $("f-status").value = item ? item.status : "In Stock";
   $("modal").hidden = false;
   $("f-name").focus();
 }
 function closeModal() { $("modal").hidden = true; }
 
+function numOrNull(id) {
+  const v = $(id).value.trim();
+  return v === "" ? null : Number(v);
+}
+
 async function submitForm(e) {
   e.preventDefault();
   const id = $("item-id").value;
   const payload = {
-    name: $("f-name").value.trim(),
-    sku: $("f-sku").value.trim(),
+    item_number: Number($("f-number").value),
     category: $("f-category").value.trim(),
+    name: $("f-name").value.trim(),
+    size: $("f-size").value.trim() || "Free",
     description: $("f-description").value.trim(),
-    quantity: Number($("f-quantity").value),
-    reorder_level: Number($("f-reorder").value),
-    unit_price: Number($("f-price").value),
+    current_stock: Number($("f-stock").value),
+    on_order: Number($("f-onorder").value),
+    max_capacity: Number($("f-max").value),
+    price_per_unit: Number($("f-price").value),
+    cost_per_unit: Number($("f-cost").value),
+    sold_price: numOrNull("f-sold"),
+    status: $("f-status").value,
   };
   try {
     if (id) {
@@ -109,7 +142,8 @@ async function submitForm(e) {
 // ---- Events ----
 $("search").addEventListener("input", (e) => { state.search = e.target.value; loadItems(); });
 $("filter-category").addEventListener("input", (e) => { state.category = e.target.value; loadItems(); });
-$("filter-low").addEventListener("change", (e) => { state.lowOnly = e.target.checked; loadItems(); });
+$("filter-status").addEventListener("change", (e) => { state.status = e.target.value; loadItems(); });
+$("filter-over").addEventListener("change", (e) => { state.overOnly = e.target.checked; loadItems(); });
 $("btn-new").addEventListener("click", () => openModal(null));
 $("btn-cancel").addEventListener("click", closeModal);
 $("item-form").addEventListener("submit", submitForm);

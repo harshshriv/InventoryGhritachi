@@ -8,7 +8,8 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
-from app.database import Base, engine, get_db
+from app.database import Base, SessionLocal, engine, get_db
+from app.seed import seed_if_empty
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -16,12 +17,14 @@ BASE_DIR = Path(__file__).resolve().parent
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
+    with SessionLocal() as db:
+        seed_if_empty(db)
     yield
 
 
 app = FastAPI(
     title="InventoryGhritachi",
-    description="Inventory tracking API + UI",
+    description="Boutique inventory tracking API + UI",
     lifespan=lifespan,
 )
 
@@ -36,10 +39,13 @@ app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="stat
 def api_list_items(
     search: str | None = None,
     category: str | None = None,
-    low_stock: bool = False,
+    status: str | None = None,
+    overstocked: bool = False,
     db: Session = Depends(get_db),
 ):
-    return crud.list_items(db, search=search, category=category, low_stock=low_stock)
+    return crud.list_items(
+        db, search=search, category=category, status=status, overstocked=overstocked
+    )
 
 
 @app.get("/api/items/{item_id}", response_model=schemas.ItemOut, tags=["items"])
@@ -57,8 +63,8 @@ def api_get_item(item_id: int, db: Session = Depends(get_db)):
     tags=["items"],
 )
 def api_create_item(data: schemas.ItemCreate, db: Session = Depends(get_db)):
-    if crud.get_item_by_sku(db, data.sku):
-        raise HTTPException(status_code=409, detail="SKU already exists")
+    if crud.get_item_by_number(db, data.item_number):
+        raise HTTPException(status_code=409, detail="Item number already exists")
     return crud.create_item(db, data)
 
 
@@ -69,8 +75,12 @@ def api_update_item(
     item = crud.get_item(db, item_id)
     if item is None:
         raise HTTPException(status_code=404, detail="Item not found")
-    if data.sku and data.sku != item.sku and crud.get_item_by_sku(db, data.sku):
-        raise HTTPException(status_code=409, detail="SKU already exists")
+    if (
+        data.item_number
+        and data.item_number != item.item_number
+        and crud.get_item_by_number(db, data.item_number)
+    ):
+        raise HTTPException(status_code=409, detail="Item number already exists")
     return crud.update_item(db, item, data)
 
 
@@ -86,14 +96,29 @@ def api_delete_item(item_id: int, db: Session = Depends(get_db)):
     crud.delete_item(db, item)
 
 
+@app.get("/api/meta", tags=["meta"])
+def api_meta(db: Session = Depends(get_db)):
+    return {
+        "categories": crud.categories(db),
+        "next_item_number": crud.next_item_number(db),
+    }
+
+
 @app.get("/api/stats", tags=["stats"])
 def api_stats(db: Session = Depends(get_db)):
     items = crud.list_items(db)
+    in_stock = [i for i in items if i.status == "In Stock"]
+    sold = [i for i in items if i.status == "Sold"]
     return {
         "total_items": len(items),
-        "total_units": sum(i.quantity for i in items),
-        "total_value": round(sum(i.quantity * i.unit_price for i in items), 2),
-        "low_stock_count": sum(1 for i in items if i.low_stock),
+        "in_stock_count": len(in_stock),
+        "sold_count": len(sold),
+        "units_in_stock": sum(i.current_stock for i in in_stock),
+        "on_order_units": sum(i.on_order for i in items),
+        "overstocked_count": sum(1 for i in items if i.overstocked),
+        "stock_cost_value": round(sum(i.total_cost_in_stock for i in in_stock), 2),
+        "stock_retail_value": round(sum(i.total_value_in_stock for i in in_stock), 2),
+        "sold_revenue": round(sum(i.sold_price or 0 for i in sold), 2),
     }
 
 

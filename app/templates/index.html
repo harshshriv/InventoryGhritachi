@@ -9,51 +9,77 @@
 <body>
   <header>
     <h1>InventoryGhritachi</h1>
-    <p class="tagline">Inventory tracking</p>
+    <p class="tagline">Boutique inventory</p>
   </header>
 
   <section class="stats" id="stats">
-    <div class="stat"><span class="stat-value" id="stat-items">0</span><span class="stat-label">Items</span></div>
+    <div class="stat"><span class="stat-value" id="stat-instock">0</span><span class="stat-label">In stock</span></div>
     <div class="stat"><span class="stat-value" id="stat-units">0</span><span class="stat-label">Units</span></div>
-    <div class="stat"><span class="stat-value" id="stat-value">0</span><span class="stat-label">Total value</span></div>
-    <div class="stat warn"><span class="stat-value" id="stat-low">0</span><span class="stat-label">Low stock</span></div>
+    <div class="stat"><span class="stat-value" id="stat-cost">0</span><span class="stat-label">Stock cost</span></div>
+    <div class="stat"><span class="stat-value" id="stat-retail">0</span><span class="stat-label">Retail value</span></div>
+    <div class="stat sold"><span class="stat-value" id="stat-sold">0</span><span class="stat-label">Sold</span></div>
+    <div class="stat money"><span class="stat-value" id="stat-revenue">0</span><span class="stat-label">Sold revenue</span></div>
+    <div class="stat warn"><span class="stat-value" id="stat-over">0</span><span class="stat-label">Overstocked</span></div>
   </section>
 
   <section class="toolbar">
-    <input type="search" id="search" placeholder="Search name or SKU…" />
+    <input type="search" id="search" placeholder="Search name or category…" />
     <input type="text" id="filter-category" list="categories" placeholder="Category" />
     <datalist id="categories">
       {% for c in categories %}<option value="{{ c }}"></option>{% endfor %}
     </datalist>
-    <label class="checkbox"><input type="checkbox" id="filter-low" /> Low stock only</label>
+    <select id="filter-status">
+      <option value="">All statuses</option>
+      <option value="In Stock">In Stock</option>
+      <option value="Sold">Sold</option>
+    </select>
+    <label class="checkbox"><input type="checkbox" id="filter-over" /> Overstocked only</label>
     <button id="btn-new" class="primary">+ New item</button>
   </section>
 
-  <table id="items-table">
-    <thead>
-      <tr>
-        <th>Name</th><th>SKU</th><th>Category</th><th class="num">Qty</th>
-        <th class="num">Reorder</th><th class="num">Unit price</th><th class="num">Value</th><th></th>
-      </tr>
-    </thead>
-    <tbody id="items-body"></tbody>
-  </table>
-  <p id="empty" class="empty" hidden>No items yet. Add your first item.</p>
+  <div class="table-wrap">
+    <table id="items-table">
+      <thead>
+        <tr>
+          <th class="num">#</th><th>Category</th><th>Name</th><th>Size</th>
+          <th class="num">Stock</th><th class="num">On order</th><th class="num">Max</th>
+          <th class="num">Price</th><th class="num">Cost</th><th class="num">Ratio</th>
+          <th class="num">Sold</th><th>Status</th><th class="num">Stock value</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="items-body"></tbody>
+    </table>
+  </div>
+  <p id="empty" class="empty" hidden>No items found.</p>
 
   <!-- Modal form -->
   <div id="modal" class="modal" hidden>
     <form id="item-form" class="modal-card">
       <h2 id="form-title">New item</h2>
       <input type="hidden" id="item-id" />
+      <div class="row">
+        <label>Item #<input type="number" id="f-number" min="1" required /></label>
+        <label>Category<input type="text" id="f-category" list="categories" /></label>
+        <label>Size<input type="text" id="f-size" value="Free" /></label>
+      </div>
       <label>Name<input type="text" id="f-name" required /></label>
-      <label>SKU<input type="text" id="f-sku" required /></label>
-      <label>Category<input type="text" id="f-category" list="categories" /></label>
       <label>Description<textarea id="f-description" rows="2"></textarea></label>
       <div class="row">
-        <label>Quantity<input type="number" id="f-quantity" min="0" value="0" /></label>
-        <label>Reorder level<input type="number" id="f-reorder" min="0" value="0" /></label>
-        <label>Unit price<input type="number" id="f-price" min="0" step="0.01" value="0" /></label>
+        <label>Current stock<input type="number" id="f-stock" min="0" value="1" /></label>
+        <label>On order<input type="number" id="f-onorder" min="0" value="0" /></label>
+        <label>Max capacity<input type="number" id="f-max" min="0" value="1" /></label>
       </div>
+      <div class="row">
+        <label>Price/unit (AED)<input type="number" id="f-price" min="0" step="0.01" value="0" /></label>
+        <label>Cost/unit (AED)<input type="number" id="f-cost" min="0" step="0.01" value="0" /></label>
+        <label>Sold price (AED)<input type="number" id="f-sold" min="0" step="0.01" placeholder="—" /></label>
+      </div>
+      <label>Status
+        <select id="f-status">
+          <option value="In Stock">In Stock</option>
+          <option value="Sold">Sold</option>
+        </select>
+      </label>
       <p class="form-error" id="form-error" hidden></p>
       <div class="modal-actions">
         <button type="button" id="btn-cancel">Cancel</button>

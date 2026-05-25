@@ -1,15 +1,19 @@
 # InventoryGhritachi
 
-A small inventory tracking app built with **FastAPI** — a JSON API plus a
-lightweight web UI for managing stock items.
+A boutique inventory tracking app built with **FastAPI** — a JSON API plus a
+lightweight web UI for managing stock. Prices are shown in **AED**.
 
 ## Features
 
 - Create, read, update, and delete inventory items
-- Track quantity, reorder level, unit price, and category per item
-- Automatic **low-stock** flag when quantity drops to/below the reorder level
-- Search by name/SKU, filter by category, and a low-stock-only view
-- Dashboard stats: total items, total units, total inventory value, low-stock count
+- Per item: number, category, name, size, current stock, on order, max capacity,
+  price/unit, cost/unit, sold price, and stock status (In Stock / Sold)
+- Auto-computed fields: price-to-cost ratio, in-store + on-order, total cost in
+  stock, total retail value in stock, and an **overstocked** flag
+- Search (name/category), filter by category and status, and an overstocked-only view
+- Dashboard stats: in-stock count, units, stock cost value, retail value, sold
+  count, sold revenue, and overstocked count
+- First run auto-seeds the catalogue from `data/inventory_seed.csv`
 - Interactive docs at `/docs` (Swagger) and `/redoc`
 
 ## Tech stack
@@ -34,18 +38,21 @@ Then open:
 - UI dashboard: http://127.0.0.1:8000/
 - API docs:     http://127.0.0.1:8000/docs
 
-The database is created automatically as `inventory.db`. Override the location
-with the `DATABASE_URL` environment variable.
+The database is created automatically as `inventory.db` and, when empty, is
+seeded from `data/inventory_seed.csv`. Override the location with the
+`DATABASE_URL` environment variable. To re-seed, delete `inventory.db` and
+restart.
 
 ## API
 
 | Method | Path                 | Description                          |
 | ------ | -------------------- | ------------------------------------ |
-| GET    | `/api/items`         | List items (`search`, `category`, `low_stock` query params) |
+| GET    | `/api/items`         | List items (`search`, `category`, `status`, `overstocked` query params) |
 | POST   | `/api/items`         | Create an item                       |
 | GET    | `/api/items/{id}`    | Get one item                         |
 | PUT    | `/api/items/{id}`    | Update an item                       |
 | DELETE | `/api/items/{id}`    | Delete an item                       |
+| GET    | `/api/meta`          | Categories + next free item number   |
 | GET    | `/api/stats`         | Aggregate inventory stats            |
 
 ## Tests
@@ -61,11 +68,14 @@ pytest
 app/
   main.py        FastAPI app, API routes, UI route
   database.py    SQLAlchemy engine/session
-  models.py      Item ORM model
+  models.py      Item ORM model (+ computed fields)
   schemas.py     Pydantic request/response models
   crud.py        Database operations
+  seed.py        CSV importer (first-run seeding)
   templates/     Jinja2 UI
   static/        CSS + JS
+data/
+  inventory_seed.csv   Starting catalogue
 tests/
-  test_api.py    API + UI tests
+  test_api.py    API + UI + seed tests
 ```

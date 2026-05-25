@@ -9,20 +9,23 @@ def list_items(
     *,
     search: str | None = None,
     category: str | None = None,
-    low_stock: bool = False,
+    status: str | None = None,
+    overstocked: bool = False,
 ) -> list[models.Item]:
     stmt = select(models.Item)
     if search:
         pattern = f"%{search}%"
         stmt = stmt.where(
-            or_(models.Item.name.ilike(pattern), models.Item.sku.ilike(pattern))
+            or_(models.Item.name.ilike(pattern), models.Item.category.ilike(pattern))
         )
     if category:
         stmt = stmt.where(models.Item.category == category)
-    stmt = stmt.order_by(models.Item.name)
+    if status:
+        stmt = stmt.where(models.Item.status == status)
+    stmt = stmt.order_by(models.Item.item_number)
     items = list(db.scalars(stmt).all())
-    if low_stock:
-        items = [item for item in items if item.low_stock]
+    if overstocked:
+        items = [item for item in items if item.overstocked]
     return items
 
 
@@ -30,8 +33,17 @@ def get_item(db: Session, item_id: int) -> models.Item | None:
     return db.get(models.Item, item_id)
 
 
-def get_item_by_sku(db: Session, sku: str) -> models.Item | None:
-    return db.scalar(select(models.Item).where(models.Item.sku == sku))
+def get_item_by_number(db: Session, item_number: int) -> models.Item | None:
+    return db.scalar(
+        select(models.Item).where(models.Item.item_number == item_number)
+    )
+
+
+def next_item_number(db: Session) -> int:
+    current = db.scalar(select(models.Item.item_number).order_by(
+        models.Item.item_number.desc()
+    ))
+    return (current or 0) + 1
 
 
 def create_item(db: Session, data: schemas.ItemCreate) -> models.Item:

@@ -7,6 +7,8 @@
   --primary: #2563eb;
   --warn-bg: #fff4e5;
   --warn: #b45309;
+  --sold-bg: #f1f5f9;
+  --green: #047857;
 }
 
 * { box-sizing: border-box; }
@@ -25,22 +27,23 @@ header h1 { margin: 0; font-size: 1.6rem; }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.8rem;
   margin: 1.25rem 0;
 }
 .stat {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 1rem;
+  padding: 0.9rem;
   display: flex;
   flex-direction: column;
 }
-.stat-value { font-size: 1.6rem; font-weight: 700; }
-.stat-label { color: var(--muted); font-size: 0.85rem; }
+.stat-value { font-size: 1.4rem; font-weight: 700; }
+.stat-label { color: var(--muted); font-size: 0.8rem; }
 .stat.warn { background: var(--warn-bg); }
 .stat.warn .stat-value { color: var(--warn); }
+.stat.money .stat-value, .stat.sold .stat-value { color: var(--green); }
 
 .toolbar {
   display: flex;
@@ -50,7 +53,8 @@ header h1 { margin: 0; font-size: 1.6rem; }
   margin-bottom: 1rem;
 }
 .toolbar input[type="search"],
-.toolbar input[type="text"] {
+.toolbar input[type="text"],
+.toolbar select {
   padding: 0.5rem 0.7rem;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -71,33 +75,43 @@ button.primary { background: var(--primary); color: #fff; border-color: var(--pr
 button.link { border: none; background: none; color: var(--primary); padding: 0.2rem 0.4rem; }
 button.link.danger { color: #dc2626; }
 
-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-th, td { padding: 0.65rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
-th { background: #fafbfc; color: var(--muted); font-weight: 600; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; background: var(--card); min-width: 980px; }
+th, td { padding: 0.55rem 0.7rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; white-space: nowrap; }
+th { background: #fafbfc; color: var(--muted); font-weight: 600; position: sticky; top: 0; }
 th.num, td.num { text-align: right; }
 tbody tr:last-child td { border-bottom: none; }
-tr.low td { background: var(--warn-bg); }
-.badge { background: var(--warn); color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 999px; margin-left: 0.4rem; }
+tr.sold td { background: var(--sold-bg); color: var(--muted); }
+tr.over td { background: var(--warn-bg); }
+.badge { background: var(--warn); color: #fff; font-size: 0.65rem; padding: 0.1rem 0.35rem; border-radius: 999px; margin-left: 0.35rem; }
+.pill { font-size: 0.75rem; padding: 0.12rem 0.5rem; border-radius: 999px; }
+.pill-stock { background: #e0f2fe; color: #075985; }
+.pill-sold { background: #e2e8f0; color: #475569; }
 .empty { color: var(--muted); text-align: center; padding: 2rem; }
 
 .modal {
   position: fixed; inset: 0;
   background: rgba(15, 23, 42, 0.45);
   display: flex; align-items: center; justify-content: center;
-  padding: 1rem;
+  padding: 1rem; overflow-y: auto;
 }
 .modal-card {
   background: var(--card);
   border-radius: 12px;
   padding: 1.5rem;
-  width: 100%; max-width: 520px;
+  width: 100%; max-width: 560px;
   display: flex; flex-direction: column; gap: 0.7rem;
+  margin: auto;
 }
 .modal-card h2 { margin: 0 0 0.3rem; }
-.modal-card label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.85rem; color: var(--muted); }
-.modal-card input, .modal-card textarea {
+.modal-card label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.82rem; color: var(--muted); }
+.modal-card input, .modal-card textarea, .modal-card select {
   padding: 0.45rem 0.6rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; color: var(--text);
 }
 .modal-card .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 0.5rem; }
 .form-error { color: #dc2626; font-size: 0.85rem; margin: 0; }
+
+@media (max-width: 540px) {
+  .modal-card .row { grid-template-columns: 1fr; }
+}

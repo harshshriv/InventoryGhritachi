@@ -1,0 +1,90 @@
+Part or Item Number,Item Category,Item Name,Current Stock,On Order,Max Capacity,Price Per Unit,Cost Per Unit,Price to Cost Ratio,Sold Price,Sizes,Description,In Store + On Order,Stock Status,Overstocked,Cost of Current Order,Total Cost in Stock,Total Stocked Item Cost
+1,Dhoti Suit,Yellow DS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+2,Dhoti Suit,Yellow DS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+3,Dhoti Suit,White DS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+4,Dhoti Suit,Golden DS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+5,Dhoti Suit,Mergenta DS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+6,Dhoti Suit,Brick DS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+7,Dhoti Suit,Green DS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+8,Dhoti Suit,Red DS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+9,Plazzo Suit,Purple PS,1,0,1,dh139.00,dh54.00,2.6,,Free,,1,In Stock, ,dh0.00,dh54.00,dh139.00
+10,Mul Chanderi Cord Set,Brick MCCS,1,0,1,dh250.00,dh91.00,2.7,,L,,1,In Stock, ,dh0.00,dh91.00,dh250.00
+11,Mul Chanderi Cord Set,Brick MCCS,1,0,1,dh250.00,dh91.00,2.7,,XXL,,1,In Stock, ,dh0.00,dh91.00,dh250.00
+12,Mul Chanderi Cord Set,Mehndi MCCS,1,0,1,dh250.00,dh91.00,2.7,,M,,1,In Stock, ,dh0.00,dh91.00,dh250.00
+13,Mul Chanderi Cord Set,Mehndi MCCS,1,0,1,dh250.00,dh91.00,2.7,,XL,,1,In Stock, ,dh0.00,dh91.00,dh250.00
+14,Mul Chanderi Cord Set,Teal Green MCCS,1,0,1,dh250.00,dh91.00,2.7,,M,,1,In Stock, ,dh0.00,dh91.00,dh250.00
+15,Mul Chanderi Cord Set,Teal Green MCCS,1,0,1,dh250.00,dh91.00,2.7,159,XL,sold,1,In Stock, ,dh0.00,dh91.00,dh250.00
+16,Block Print Cord Set,White BPCS,1,0,1,dh170.00,dh48.00,3.5,,M,,1,In Stock, ,dh0.00,dh48.00,dh170.00
+17,Block Print Cord Set,White BPCS,1,0,1,dh170.00,dh48.00,3.5,,L,,1,In Stock, ,dh0.00,dh48.00,dh170.00
+18,Block Print Cord Set,White BPCS,1,0,1,dh170.00,dh48.00,3.5,,XL,,1,In Stock, ,dh0.00,dh48.00,dh170.00
+19,Block Print Cord Set,White BPCS,1,0,1,dh170.00,dh48.00,3.5,,XXL,,1,In Stock, ,dh0.00,dh48.00,dh170.00
+20,Floral Print Cord Set,Black FPCS,1,0,1,dh120.00,dh36.00,3.3,,M,,1,In Stock, ,dh0.00,dh36.00,dh120.00
+21,Floral Print Cord Set,Black FPCS,1,0,1,dh120.00,dh36.00,3.3,,L,,1,In Stock, ,dh0.00,dh36.00,dh120.00
+22,Floral Print Cord Set,Black FPCS,1,0,1,dh120.00,dh36.00,3.3,80,XL,,1,Sold, ,dh0.00,dh36.00,dh120.00
+23,Floral Print Cord Set,Black FPCS,1,0,1,dh120.00,dh36.00,3.3,85,XXL,,1,In Stock, ,dh0.00,dh36.00,dh120.00
+24,Traditional Print Cord Set,Brown TPCS,1,0,1,dh220.00,dh63.00,3.5,,S,,1,In Stock, ,dh0.00,dh63.00,dh220.00
+25,Traditional Print Cord Set,Brown TPCS,1,0,1,dh220.00,dh63.00,3.5,,M,,1,In Stock, ,dh0.00,dh63.00,dh220.00
+26,Traditional Print Cord Set,Brown TPCS,1,0,1,dh220.00,dh63.00,3.5,,L,,1,In Stock, ,dh0.00,dh63.00,dh220.00
+27,Traditional Print Cord Set,Brown TPCS,1,0,1,dh220.00,dh63.00,3.5,,XL,,1,In Stock, ,dh0.00,dh63.00,dh220.00
+28,Traditional Print Cord Set,Brown TPCS,1,0,1,dh220.00,dh63.00,3.5,80,XXL,,1,Sold, ,dh0.00,dh63.00,dh220.00
+29,Silk Plazzo Set,Green SPS,1,0,1,dh250.00,dh80.00,3.1,,M,,1,In Stock, ,dh0.00,dh80.00,dh250.00
+30,Silk Plazzo Set,Green SPS,1,0,1,dh250.00,dh80.00,3.1,,XL,,1,In Stock, ,dh0.00,dh80.00,dh250.00
+31,Silk Plazzo Set,Pink SPS,1,0,1,dh250.00,dh80.00,3.1,,L,,1,In Stock, ,dh0.00,dh80.00,dh250.00
+32,Silk Plazzo Set,Pink SPS,1,0,1,dh250.00,dh80.00,3.1,,XXL,,1,In Stock, ,dh0.00,dh80.00,dh250.00
+33,Linen Cord Set,Teal Green LCS,1,0,1,dh280.00,dh91.00,3.1,,M,,1,In Stock, ,dh0.00,dh91.00,dh280.00
+34,Linen Cord Set,Teal Green LCS,1,0,1,dh280.00,dh91.00,3.1,,XL,,1,In Stock, ,dh0.00,dh91.00,dh280.00
+35,Linen Cord Set,Beige LLS,1,0,1,dh280.00,dh91.00,3.1,,L,,1,In Stock, ,dh0.00,dh91.00,dh280.00
+36,Linen Cord Set,Beige LLS,1,0,1,dh280.00,dh91.00,3.1,,XXL,,1,In Stock, ,dh0.00,dh91.00,dh280.00
+37,Linen Designer Suit,Green LDS,1,0,1,dh280.00,dh91.00,3.1,,M,,1,In Stock, ,dh0.00,dh91.00,dh280.00
+38,Linen Designer Suit,Green LDS,1,0,1,dh280.00,dh91.00,3.1,150,XL,,1,Sold, ,dh0.00,dh91.00,dh280.00
+39,Sequence Gotawork Crop Jacket Set,Maroon SGCJS,1,0,1,dh350.00,dh119.00,2.9,,M,,1,In Stock, ,dh0.00,dh119.00,dh350.00
+40,Sequence Gotawork Crop Jacket Set,Maroon SGCJS,1,0,1,dh350.00,dh119.00,2.9,,L,,1,In Stock, ,dh0.00,dh119.00,dh350.00
+41,Sequence Gotawork Crop Jacket Set,Maroon SGCJS,1,0,1,dh350.00,dh119.00,2.9,,XL,,1,In Stock, ,dh0.00,dh119.00,dh350.00
+42,Kaftaan,Purple K,1,0,1,dh550.00,dh178.00,3.1,350,Free,,1,Sold, ,dh0.00,dh178.00,dh550.00
+43,Designer Blouse - Crop Top,Yellow DBCT,1,0,1,dh165.00,dh54.00,3.1,,Free,,1,In Stock, ,dh0.00,dh54.00,dh165.00
+44,Designer Blouse - Crop Top,White DBCT,1,0,1,dh165.00,dh54.00,3.1,,Free,,1,In Stock, ,dh0.00,dh54.00,dh165.00
+45,Designer Blouse - Crop Top,Pink DBCT,1,0,1,dh165.00,dh54.00,3.1,,Free,,1,In Stock, ,dh0.00,dh54.00,dh165.00
+46,Designer Blouse - Crop Top,Golden DBCT,1,0,1,dh165.00,dh54.00,3.1,,Free,,1,In Stock, ,dh0.00,dh54.00,dh165.00
+47,Sequence Blouse - Crop Top,Black SBCT,1,0,1,dh200.00,dh54.00,3.7,,Free,,1,In Stock, ,dh0.00,dh54.00,dh200.00
+48,Sequence Blouse - Crop Top,Golden SBCT,1,0,1,dh200.00,dh54.00,3.7,,Free,,1,In Stock, ,dh0.00,dh54.00,dh200.00
+49,Designer Blouse - Long Sleeves,Red DBLS,1,0,1,dh165.00,dh50.00,3.3,,Free,,1,In Stock, ,dh0.00,dh50.00,dh165.00
+50,Designer Blouse - Long Sleeves,White DBLS,1,0,1,dh165.00,dh50.00,3.3,,Free,,1,In Stock, ,dh0.00,dh50.00,dh165.00
+51,Designer Blouse - Long Sleeves,Grey DBLS,1,0,1,dh165.00,dh50.00,3.3,,Free,,1,In Stock, ,dh0.00,dh50.00,dh165.00
+52,Designer Blouse - Long Sleeves,Yellow DBLS,1,0,1,dh165.00,dh50.00,3.3,,Free,,1,In Stock, ,dh0.00,dh50.00,dh165.00
+53,Designer Blouse - Long Sleeves,Pink DBLS,1,0,1,dh165.00,dh50.00,3.3,,Free,,1,In Stock, ,dh0.00,dh50.00,dh165.00
+54,Corset Blouse,Yellow CB,1,0,1,dh210.00,dh62.00,3.4,,Free,,1,In Stock, ,dh0.00,dh62.00,dh210.00
+55,Corset Blouse,Red CB,1,0,1,dh210.00,dh62.00,3.4,,Free,,1,In Stock, ,dh0.00,dh62.00,dh210.00
+56,Corset Blouse,White CB,1,0,1,dh210.00,dh62.00,3.4,,Free,,1,In Stock, ,dh0.00,dh62.00,dh210.00
+57,Corset Blouse,Black CB,1,0,1,dh210.00,dh62.00,3.4,,Free,,1,In Stock, ,dh0.00,dh62.00,dh210.00
+58,Designer Blouse - Silk,Blue DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+59,Designer Blouse - Silk,Pink DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+60,Designer Blouse - Silk,Green DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+61,Designer Blouse - Silk,Brick DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+62,Designer Blouse - Silk,Golden DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+63,Designer Blouse - Silk,Cream DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+64,Designer Blouse - Silk,Golden Yellow DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+65,Designer Blouse - Silk,Rama Green DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+66,Designer Blouse - Silk,Black DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+67,Designer Blouse - Silk,Red DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+68,Designer Blouse - Silk,Pista Green DBS,1,0,1,dh100.00,dh18.00,5.6,,Free,,1,In Stock, ,dh0.00,dh18.00,dh100.00
+69,Designer Blouse - Pearl,White DBP,1,0,1,dh250.00,dh62.00,4.0,,Free,,1,In Stock, ,dh0.00,dh62.00,dh250.00
+70,Designer Blouse - Pearl,White DBP,1,0,1,dh250.00,dh62.00,4.0,,Free,,1,In Stock, ,dh0.00,dh62.00,dh250.00
+71,Designed Pearl Shrug,White DPS,1,0,1,dh180.00,dh46.00,3.9,,Free,,1,In Stock, ,dh0.00,dh46.00,dh180.00
+72,Saree - Fendi,Beige SF,1,0,1,dh169.00,dh42.00,4.0,440,Free,,1,Sold, ,dh0.00,dh42.00,dh169.00
+73,Saree - Fendi,Pastel Green SF,1,0,1,dh169.00,dh42.00,4.0,,Free,,1,In Stock, ,dh0.00,dh42.00,dh169.00
+74,Saree - Gorget,Black SG,1,0,1,dh149.00,dh50.00,3.0,,Free,,1,In Stock, ,dh0.00,dh50.00,dh149.00
+75,Saree - Fendi,Candy Purple SF,1,0,1,dh80.00,dh17.00,4.7,,Free,,1,In Stock, ,dh0.00,dh17.00,dh80.00
+76,Saree - Fendi,Golden SF,1,0,1,dh80.00,dh17.00,4.7,,Free,,1,In Stock, ,dh0.00,dh17.00,dh80.00
+77,Saree - Fendi,Black SF,1,0,1,dh80.00,dh17.00,4.7,,Free,,1,In Stock, ,dh0.00,dh17.00,dh80.00
+78,Saree - Fendi,Green SF,1,0,1,dh80.00,dh17.00,4.7,,Free,,1,In Stock, ,dh0.00,dh17.00,dh80.00
+79,Saree - Cotton,Beige - SC,1,0,1,dh140.00,dh51.00,2.7,,Free,,1,In Stock, ,dh0.00,dh51.00,dh140.00
+80,Saree - Cotton,Brown Katha Work- SC,1,0,1,dh120.00,dh43.00,2.8,,Free,,1,In Stock, ,dh0.00,dh43.00,dh120.00
+81,Saree - Cotton,Green - SC,1,0,1,dh110.00,dh29.00,3.8,,Free,,1,In Stock, ,dh0.00,dh29.00,dh110.00
+82,Saree - Tussar Silk,Pink - STS,1,0,1,dh110.00,dh26.00,4.2,,Free,,1,In Stock, ,dh0.00,dh26.00,dh110.00
+83,Saree - Gheesa jal Silk,Mauve - GJS,1,0,1,dh110.00,dh25.00,4.4,,Free,,1,In Stock, ,dh0.00,dh25.00,dh110.00
+84,Saree - Printed Satin,Maroon - SPS,1,0,1,dh70.00,dh18.00,3.9,,Free,,1,In Stock, ,dh0.00,dh18.00,dh70.00
+85,Saree Designer - Cotton Mix,Grey - SDCM,1,0,1,dh70.00,dh14.00,5.0,,Free,,1,In Stock, ,dh0.00,dh14.00,dh70.00
+86,Saree - South Cotton,White - SSC,1,0,1,dh50.00,dh16.00,3.1,,Free,,1,In Stock, ,dh0.00,dh16.00,dh50.00
+87,Saree - South Cotton,White with Purple Border - SSC,1,0,1,dh50.00,dh16.00,3.1,,Free,,1,In Stock, ,dh0.00,dh16.00,dh50.00
+88,Saree - South Cotton,Grey - SSC,1,0,1,dh110.00,dh28.00,3.9,,Free,,1,In Stock, ,dh0.00,dh28.00,dh110.00
+89,Saree - Printed Satin,Blue - SPS,1,0,1,dh70.00,dh18.00,3.9,,Free,,1,In Stock, ,dh0.00,dh18.00,dh70.00
