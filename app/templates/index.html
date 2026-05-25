@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InventoryGhritachi</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>InventoryGhritachi</h1>
+    <p class="tagline">Inventory tracking</p>
+  </header>
+
+  <section class="stats" id="stats">
+    <div class="stat"><span class="stat-value" id="stat-items">0</span><span class="stat-label">Items</span></div>
+    <div class="stat"><span class="stat-value" id="stat-units">0</span><span class="stat-label">Units</span></div>
+    <div class="stat"><span class="stat-value" id="stat-value">0</span><span class="stat-label">Total value</span></div>
+    <div class="stat warn"><span class="stat-value" id="stat-low">0</span><span class="stat-label">Low stock</span></div>
+  </section>
+
+  <section class="toolbar">
+    <input type="search" id="search" placeholder="Search name or SKU…" />
+    <input type="text" id="filter-category" list="categories" placeholder="Category" />
+    <datalist id="categories">
+      {% for c in categories %}<option value="{{ c }}"></option>{% endfor %}
+    </datalist>
+    <label class="checkbox"><input type="checkbox" id="filter-low" /> Low stock only</label>
+    <button id="btn-new" class="primary">+ New item</button>
+  </section>
+
+  <table id="items-table">
+    <thead>
+      <tr>
+        <th>Name</th><th>SKU</th><th>Category</th><th class="num">Qty</th>
+        <th class="num">Reorder</th><th class="num">Unit price</th><th class="num">Value</th><th></th>
+      </tr>
+    </thead>
+    <tbody id="items-body"></tbody>
+  </table>
+  <p id="empty" class="empty" hidden>No items yet. Add your first item.</p>
+
+  <!-- Modal form -->
+  <div id="modal" class="modal" hidden>
+    <form id="item-form" class="modal-card">
+      <h2 id="form-title">New item</h2>
+      <input type="hidden" id="item-id" />
+      <label>Name<input type="text" id="f-name" required /></label>
+      <label>SKU<input type="text" id="f-sku" required /></label>
+      <label>Category<input type="text" id="f-category" list="categories" /></label>
+      <label>Description<textarea id="f-description" rows="2"></textarea></label>
+      <div class="row">
+        <label>Quantity<input type="number" id="f-quantity" min="0" value="0" /></label>
+        <label>Reorder level<input type="number" id="f-reorder" min="0" value="0" /></label>
+        <label>Unit price<input type="number" id="f-price" min="0" step="0.01" value="0" /></label>
+      </div>
+      <p class="form-error" id="form-error" hidden></p>
+      <div class="modal-actions">
+        <button type="button" id="btn-cancel">Cancel</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
